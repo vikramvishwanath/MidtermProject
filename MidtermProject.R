@@ -280,7 +280,6 @@ colnames(accid) <- c("ESTABNAME",'ADDRESS','INDUSTRY','ACTIVITYNO',
 bodypart <- filter(acc, CATEGORY == 'PART-BODY')
 colnames(bodypart) <- c("CATEGORY", "BODYPARTCODE", "BODYPART")
 
-
 nature <- filter(acc, CATEGORY == 'NATUR-INJ')
 colnames(nature) <- c("CATEGORY", "NATURECODE", "NATUREOFINJ")
 

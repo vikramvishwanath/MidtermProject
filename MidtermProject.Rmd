@@ -29,7 +29,7 @@ The files used for this preparation are:
 
 The first three files provide the details of OSHA inspections. All of the data are coded (i.e. body parts are coded with numbers 1-31, injuries are coded 1-18, etc.). *acc.dbf* contains the references for these codes. *hazsub.dbf* and *hzs.dbf* give the codes for hazardous substances, and *sic.dbf* gives the industry type (fishing, repair, construction, etc.)
 
-## B. Cleaning up *accid.dbf*
+## B. Cleaning *accid.dbf*
 
 This file contains 2147 observations of accidents and related details. With 16 variables, the table holds a large amount of information; however, not all variables are needed.
 
@@ -53,13 +53,13 @@ Upon inspection, the last column, HAZSUB, seemed to have missing values. It was 
 
 Both tables were arranged by DEGREE (1, 2, 3). It was found that the accidents without hazardous substances contained incidents of zero degree. From the README files for the original data sets, zero values were undefined. It was inferred that a degree of zero represents an incident without injuries. These rows were moved to a new table and removed from the original tables.
 
-Using the hzs.dbf file, the coded HAZSUB column was replaced by its corresponding hazardous substances. Not all hazardous substances had a matching code so this joining procedure produced missing values. These rows cannot be omitted as they can be used for analysis so the table was arranged such that these missing values would be towards the end of the table.
+Using *hzs.dbf*, the coded HAZSUB column was replaced by its corresponding hazardous substances. Not all hazardous substances had a matching code so this joining procedure produced missing values. These rows cannot be omitted as they can be used for analysis; the table was arranged such that these missing values would be towards the end of the table.
 
-## C. Cleaning up viol.DBF
+## C. Cleaning *viol.DBF*
 
-This table contains the violations for each company as well as more than 30 other variables. To determine the hazardous conditions of a site, only the following columns were maintained:
+This table contains the violations for each company as well as more than 30 other variables. To determine the hazardous conditions of a site, only the following columns were retained:
 
-  1. ACTIVITYNO: same unique identifier as in accid.DBF
+  1. ACTIVITYNO: same unique identifier as in *accid.DBF*
   2. ISSUEDATE: date of issue, useful for time series
   3. ITEMNO: tally of repeat violations
   4. GRAVITY: seriousness of violation
@@ -70,7 +70,7 @@ Some of the violations in this table were marked as "deleted due to some reason 
 
 After performing the above cleanup, all rows were checked for mising values; none were found, except in the GRAVITY column. Some duplicates were found, and were deleted. The GRAVITY column provides meaningful information so as we did with the accidents file, rows containing GRAVITY = NA were moved to the bottom of the table.
 
-## D. Cleaning up osha.DBF
+## D. Cleaning *osha.DBF*
 
 This is likely the most comprehensive of all of the tables. It contains summaries of all of the other tables. The columns of interest are:
 
@@ -87,7 +87,7 @@ If a place has no violations, no accidents, and no hazardous substances, then we
 
 Using *sic.dbf*, the sic codes were replaced with their industry (i.e. the coded numbers were changed to strings such as "FISHING" or "REPAIR").
 
-## E. Joining to make comprehensive tables
+## E. Joining tables
 
 All three tables have a common identifier of ACTIVITYNO. Using this, the site names and addresses and industries (and all other relevant information) were attached to each table. The result was four large comprehensive tables:
 
@@ -96,15 +96,15 @@ All three tables have a common identifier of ACTIVITYNO. Using this, the site na
   3. Violations
   4. Summary (from *osha.DBF*)
   
-## F. Replacing the codes 
+## F. Replacing codes 
 
-As we did with the SIC codes and HAZSUB codes, using the *acc.dbf* code lookup file, all coded values in the accidents and violations files were replaced by their corresponding strings. The data tables are now large tables of categorical data. This may make it difficult to work with, but one can easily factor each column and assign a numerical value to each level as needed.
+As we did with the SIC codes and HAZSUB codes, using the *acc.dbf* code lookup file, all coded values in the accidents and violations files were replaced by their corresponding strings. The data tables are now large tables of categorical data. This may make them difficult to work with, but one can easily factor each column and assign a numerical value to each level as needed.
 
 # III. Exploratory Analysis
 
 ## A. Frequency of appearance
 
-The frequency of appearance for the variables in accid.dbf were measured. Histograms of a few variables are shown below.
+The frequency of appearance for the variables in *accid.dbf* were measured. Histograms of a few variables are shown below.
 
 Note: For variables with more than 30 levels, only the top 15 are shown.
 
@@ -258,7 +258,7 @@ kable(fatalNH)
 
 
 ## C. Interpretation
-All of the distributions seem to be skewed. However, they are skewed towards the incident that is most logical in the context of these workplaces. Most of these companies handle building or repair or technical/vocational work that involve physical labor. As a result, one expects fractures, falls, damage to upper body/head, to be most common. The most common incidents are indeed what is expected. Accidents involving hazardous substances a slightly difficult to analyze because one cannot be sure what substance is most toxic. Still however, that carbon monoxide is the most toxic substance agrees with the fact that carbon monoxide is one of the more prevalent toxic gases in any establishment. 
+All of the distributions seem to be skewed. However, they are skewed towards the incident that is most logical in the context of these workplaces. Most of these companies handle building or repair or technical work that involve physical labor. As a result, one expects fractures, falls, damage to upper body/head, etc., to be most common. These are indeed the most common incidents. Accidents involving hazardous substances a slightly difficult to analyze because one cannot be sure what substance is most toxic. Still however, that carbon monoxide is the most toxic substance agrees with the fact that carbon monoxide is one of the more prevalent toxic gases in any establishment. 
 
 Based on the plots above the frequency of incidents, we may infer that most accidents are due to falls from elevated working surfaces that fracture mostly the upper body and head, and are due to workers' misjudgment of hazardous situations in companies that specialize in roofing, siding, and sheet metal work.
 
