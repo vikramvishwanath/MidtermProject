@@ -5,6 +5,7 @@ require(tidyr)
 require(magrittr)
 require(ggplot2)
 require(ggthemes)
+library(knitr)
 
 # Part 1: Cleaning up accid.DBF
 # This file tells us about accidents and related info
@@ -493,7 +494,7 @@ ggplot(types) + aes(x=reorder(VIOLTYPE, n), y=n) + geom_col() +
 places <- filter(accid, accid$DEGREE=='FATALITY') %>% count(ESTABNAME) %>% arrange(desc(n))
 places <- places[1:5,]
 
-library(knitr)
+# make table, kable() works in RMD file.
 kable(places)
 
 # top 5 companies with most deaths minus human error

@@ -4,6 +4,9 @@ author: "Vikram Vishwanath"
 date: "March 20, 2017"
 output: pdf_document
 ---
+```{r echo = FALSE, message=FALSE, warning=FALSE}
+# MUST RUN "MidtermProject.R" to load necessary SAV files for this markdown file #
+```
 
 
 # I. Introduction
