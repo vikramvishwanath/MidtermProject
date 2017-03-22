@@ -5,7 +5,7 @@ require(tidyr)
 require(magrittr)
 require(ggplot2)
 require(ggthemes)
-library(knitr)
+require(knitr)
 
 # Part 1: Cleaning up accid.DBF
 # This file tells us about accidents and related info
